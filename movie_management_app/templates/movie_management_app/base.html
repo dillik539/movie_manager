@@ -10,7 +10,7 @@
 <h2>MOVIE SUPERFAN MOVIE MANAGER WEB APP</h2>
 
 
-<id='popularmovies'><a href="{% url 'popular_movies' %}">Popular movies</a>
+<a href="{% url 'popular_movies' %}">Popular movies</a>
 {% if user.is_authenticated %}
   <span id='welcome_msg'>You are logged in, {{ user.username }}</a>. <a href="{% url 'my_profile' %}">View profile</a> <a href="{% url 'logout' %}?next={% url 'homepage' %}">Logout</a></span>
 {% else %}

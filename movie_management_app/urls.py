@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^user/$', views.user, name = 'user'),
     url(r'^user/movies/watchlist/$', views.watch_list, name = 'watch_list'),
     url(r'^user/movies/watchedlist/$', views.watched_list, name = 'watched_list'),
+    url(r'^user/movies/watchlist/$', views.movie_list, name = 'movie_list'),
 ]

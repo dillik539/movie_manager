@@ -60,3 +60,12 @@ class RegistrationForm(UserCreationForm):
             user.save()
 
         return user
+
+class WatchListForm(forms.Form):
+    search_movie = forms.CharField(label = 'Search movie', max_length = 200)
+
+class WatchedListForm(forms.Form):
+    search_movie = forms.CharField(label = 'Search movie', max_length = 200)
+
+class PopularMoviesForm(forms.Form):
+    search_movie = forms.CharField(label = 'Search popular movie',max_length = 200)

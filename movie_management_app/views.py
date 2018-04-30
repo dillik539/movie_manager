@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect
-from .forms import RegistrationForm
+from .forms import RegistrationForm, WatchedListForm, WatchListForm, PopularMoviesForm
 from django.contrib.auth import authenticate, login, logout
+import requests
+
 
 # Create your views here.
 def homepage(request):
     return render(request, 'movie_management_app/homepage.html')
 
 def popularMovies(request):
-    return render(request, 'movie_management_app/popular_movies.html')
+    form = PopularMoviesForm()
+    search_movie = request.GET.get('search_movie')
+    return render(request, 'movie_management_app/popular_movies.html', {'form': form})
 
 # def login(request):
 #     return render(request, 'movie_management_app/login.html')
@@ -25,10 +29,25 @@ def user(request):
     return render(request, 'movie_management_app/user.html')
 
 def watch_list(request):
-    return render(request, 'movie_management_app/watchlist.html')
+    form = WatchListForm()
+    search_movie = request.GET.get('search_movie')
+    return render(request, 'movie_management_app/watchlist.html', {'form' : form})
+
+def movie_list(request):
+    apikey = 'd14fee3e'
+    movie = []
+    if 'search_movie' in request.GET:
+        title = request.GET.get('search_movie')
+        url = 'http://www.omdbapi.com/'+apikey+'&'+title
+        response = requests.get(url)
+        movie = response.json()['Title']
+
+    return render(request, 'movie_management_app/movie.html', {'movie':movie[0]})
 
 def watched_list(request):
-    return render(request, 'movie_management_app/watchedlist.html')
+    form = WatchedListForm()
+    search_movie = request.GET.get('search_movie')
+    return render(request, 'movie_management_app/watchedlist.html', {'form': form})
 def register(request):
 
     if request.method == 'POST':

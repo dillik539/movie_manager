@@ -2,7 +2,7 @@ body {
   font-family: monospace;
 }
 
-#login {
+#welcome_msg, #login {
   position: absolute;
   right: 0px;
   padding-right: 10px;
