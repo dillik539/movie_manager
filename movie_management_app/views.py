@@ -35,14 +35,23 @@ def watch_list(request):
 
 def movie_list(request):
     apikey = 'd14fee3e'
-    movie = []
-    if 'search_movie' in request.GET:
-        title = request.GET.get('search_movie')
-        url = 'http://www.omdbapi.com/'+apikey+'&'+title
-        response = requests.get(url)
-        movie = response.json()['Title']
+    movie= {}
+    # if 'search_movie' in request.GET:
+    #     title = request.GET.get('search_movie')
+    #     print(title)
+    #     url = 'http://www.omdbapi.com/?apikey='+apikey+'&'+'t='+title
+    #     response = requests.get(url)
+    #     movie = response.json()['Title']
+    # else:
 
-    return render(request, 'movie_management_app/movie.html', {'movie':movie[0]})
+
+    title = request.GET.get('search_movie')
+    print(title)
+    url = 'http://www.omdbapi.com/?apikey='+apikey+'&'+'t='+title
+    response = requests.get(url)
+    movie = response.json()
+
+    return render(request, 'movie_management_app/movie.html',{'movie': movie})
 
 def watched_list(request):
     form = WatchedListForm()

@@ -1,0 +1,14 @@
+{% extends 'movie_management_app/base.html' %}
+
+{% block content %}
+
+
+{% if movie %}
+  {{movie}}
+{% else %}
+  <p>No movie with that name found</p>
+{% endif %}
+
+<p>Go back to user main page? <a href = "{% url 'user' %}">click here</a></p>
+
+{% endblock %}
