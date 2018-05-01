@@ -9,20 +9,20 @@ import os
 #     # print(data)
 #     # print(data['Ratings'][0]['Value'])
 #     print(data)
-
-apikey = 'd14fee3e'
-movie = []
-# if 'search_movie' in request.GET:
-    # title = request.GET.get('search_movie')
-    # print(title)
-name = input('Enter movie name: ')
-url = 'http://www.omdbapi.com/?apikey='+apikey+'&'+'t='+name
-response = requests.get(url)
-movie1 = response.json()['Title']
-movie2 = response.json()['Year']
-movie3 = response.json()['Released']
-movie.append(movie1)
-print('Title: ',movie1, 'Year: ',movie2, 'Released: ',movie3)
+def get_movie_info(name):
+    apikey = 'd14fee3e'
+    movie_info = {}
+    url = 'http://www.omdbapi.com/?apikey='+apikey+'&'+'t='+name
+    response = requests.get(url)
+    movie = response.json()
+    keys = ['Title', 'Year', 'Actors', 'Director']
+    for key in keys:
+        movie_info.update({key: movie[key]})
+    return movie_info
+# year = response.json()['Year']
+# released = response.json()['Released']
+# movie.append(movie1)
+# print('Title: ',title, 'Year: ',year, 'Released: ',released)
 
 # return render(request, 'movie_management_app/movie.html', {'movie':movie[0]})
 

@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .forms import RegistrationForm, WatchedListForm, WatchListForm, PopularMoviesForm
 from django.contrib.auth import authenticate, login, logout
 import requests
+from movie_management_app import movie_data
+from .models import WatchList
 
 
 # Create your views here.
@@ -34,8 +36,8 @@ def watch_list(request):
     return render(request, 'movie_management_app/watchlist.html', {'form' : form})
 
 def movie_list(request):
-    apikey = 'd14fee3e'
-    movie= {}
+    # apikey = 'd14fee3e'
+
     # if 'search_movie' in request.GET:
     #     title = request.GET.get('search_movie')
     #     print(title)
@@ -46,17 +48,40 @@ def movie_list(request):
 
 
     title = request.GET.get('search_movie')
-    print(title)
-    url = 'http://www.omdbapi.com/?apikey='+apikey+'&'+'t='+title
-    response = requests.get(url)
-    movie = response.json()
+    movie = movie_data.get_movie_info(title)
+
+    # print(title)
+    # url = 'http://www.omdbapi.com/?apikey='+apikey+'&'+'t='+title
+    # response = requests.get(url)
+    # movie = response.json()
+    #
+    # title = movie['Title']
+    # year = movie['Year']
+    # released = movie['Released']
+
 
     return render(request, 'movie_management_app/movie.html',{'movie': movie})
+
+def add_to_watchlist(request):
+    title = request.POST.get("Title")
+    year = request.POST.get('Year')
+    director = request.POST.get('Director')
+    actor = request.POST.get('Actors')
+    new_movie = WatchList(name = title, actor = actor, director = director, year = year)
+    # new_movie = WatchList(name = movie.Title, actor = movie.Actors, director = movie.Director, year = movie.Year)
+
+    new_movie.save()
+    return render(request, 'movie_management_app/user.html')
 
 def watched_list(request):
     form = WatchedListForm()
     search_movie = request.GET.get('search_movie')
     return render(request, 'movie_management_app/watchedlist.html', {'form': form})
+
+# def get_watch_list(request):
+#     watchlist = WatchList.Objects.orderby('name')
+#     return render(request, 'movie_management_app/watchlist.html')
+
 def register(request):
 
     if request.method == 'POST':

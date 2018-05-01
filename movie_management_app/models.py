@@ -9,3 +9,9 @@ class UserInfo(models.Model):
     email = models.CharField(max_length = 200, unique = True,blank = False)
     password1 = models.CharField(max_length = 200, blank = False)
     password2 = models.CharField(max_length = 200, blank = False)
+
+class WatchList(models.Model):
+    name = models.CharField(max_length =200)
+    actor = models.CharField(max_length = 200)
+    director = models.CharField(max_length = 200)
+    year = models.CharField(max_length = 200)
