@@ -31,9 +31,11 @@ def user(request):
     return render(request, 'movie_management_app/user.html')
 
 def watch_list(request):
+    watchlist = WatchList.objects.all()
     form = WatchListForm()
     search_movie = request.GET.get('search_movie')
-    return render(request, 'movie_management_app/watchlist.html', {'form' : form})
+    args = {'form' : form, 'watchlist': watchlist}
+    return render(request, 'movie_management_app/watchlist.html', args)
 
 def movie_list(request):
     # apikey = 'd14fee3e'
@@ -63,15 +65,18 @@ def movie_list(request):
     return render(request, 'movie_management_app/movie.html',{'movie': movie})
 
 def add_to_watchlist(request):
+
     title = request.POST.get("Title")
     year = request.POST.get('Year')
     director = request.POST.get('Director')
     actor = request.POST.get('Actors')
     new_movie = WatchList(name = title, actor = actor, director = director, year = year)
     # new_movie = WatchList(name = movie.Title, actor = movie.Actors, director = movie.Director, year = movie.Year)
-
-    new_movie.save()
+    if not 'Cancel' in request.POST:
+        new_movie.save()
     return render(request, 'movie_management_app/user.html')
+
+
 
 def watched_list(request):
     form = WatchedListForm()
