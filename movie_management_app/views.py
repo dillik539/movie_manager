@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegistrationForm, WatchedListForm, WatchListForm, PopularMoviesForm
 from django.contrib.auth import authenticate, login, logout
 import requests
@@ -75,6 +75,13 @@ def add_to_watchlist(request):
     if not 'Cancel' in request.POST:
         new_movie.save()
     return render(request, 'movie_management_app/user.html')
+
+
+def movie_detail(request, pk):
+    movie_detail = get_object_or_404(WatchList, pk = pk)
+    print(movie_detail.name)
+
+    return render(request, 'movie_management_app/movie_detail.html', {'movie_detail': movie_detail})
 
 
 

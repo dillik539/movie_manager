@@ -1,0 +1,16 @@
+{% extends 'movie_management_app/base.html' %}
+
+{% block content %}
+<div>
+    <h3>{{movie_detail.name}}'s information</h3>
+    <br>
+    <p><strong>Name:</strong> {{movie_detail.name}}</p>
+    <p><strong>Released on:</strong> {{movie_detail.year}}</p>
+    <p><strong>Director:</strong> {{movie_detail.director}}</p>
+    <p><strong>Actor(s):</strong> {{movie_detail.actor}}</p>
+    <input type="checkbox" name="watched" value = "Watched"/>Watched
+</div>
+
+<p>Go back to user main page? <a href = "{% url 'user' %}">click here</a></p>
+
+{% endblock %}
