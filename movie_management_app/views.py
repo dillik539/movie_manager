@@ -50,7 +50,11 @@ def add_to_watchlist(request):
     actor = request.POST.get('Actors')
     new_movie = WatchList(name = title, actor = actor, director = director, year = year)
     # new_movie = WatchList(name = movie.Title, actor = movie.Actors, director = movie.Director, year = movie.Year)
-    if not 'Cancel' in request.POST:
+    movie_name = WatchList.objects.filter(name__iexact = title).all()
+    if movie_name:
+        message = 'That movie already exist in your database'
+        return render(request, 'movie_management_app/watchlist.html', {'message': message})
+    else:
         new_movie.save()
     return render(request, 'movie_management_app/user.html')
 
@@ -63,6 +67,8 @@ def add_to_watchedlist(request):
     watched_movie = WatchedList(name = title, actor= actor, director = director, year = year)
     if not 'Cancel' in request.POST:
         watched_movie.save()
+        movie = WatchList.objects.filter(name__iexact = title)
+        movie.delete()
     return render(request, 'movie_management_app/user.html')
 
 
