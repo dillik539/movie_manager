@@ -6,10 +6,26 @@
 
 <div>
   <p>Movie search</p>
+
   <form action = "{% url 'watched_list' %}">
     {{ form }}
     <input type = 'submit' value = 'Search' />
   </form>
+
+  {% for list in watched_movie %}
+
+    <p><strong>Movie name:</strong> {{list.name}}</p>
+    <p><strong>Year released:</strong> {{list.year}}</p>
+    <p><strong>Actor(s):</strong> {{list.actor}}</p>
+    <p><strong>Director:</strong> {{list.director}}</p>
+    <br>
+
+  {% empty %}
+
+    <p>No movie found</p>
+
+  {% endfor %}
+
 </div>
 
 <p>Go back to user main page? <a href = "{% url 'user' %}">click here</a></p>

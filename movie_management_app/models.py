@@ -15,3 +15,9 @@ class WatchList(models.Model):
     actor = models.CharField(max_length = 200)
     director = models.CharField(max_length = 200)
     year = models.CharField(max_length = 200)
+
+class WatchedList(models.Model):
+    name = models.CharField(max_length = 200)
+    actor = models.CharField(max_length = 200)
+    director = models.CharField(max_length = 200)
+    year = models.CharField(max_length = 200)

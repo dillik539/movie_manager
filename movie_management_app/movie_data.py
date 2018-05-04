@@ -10,7 +10,8 @@ import os
 #     # print(data['Ratings'][0]['Value'])
 #     print(data)
 def get_movie_info(name):
-    apikey = 'd14fee3e'
+    # apikey = 'd14fee3e'
+    apikey = os.environ['OMDB_KEY']
     movie_info = {}
     url = 'http://www.omdbapi.com/?apikey='+apikey+'&'+'t='+name
     response = requests.get(url)
