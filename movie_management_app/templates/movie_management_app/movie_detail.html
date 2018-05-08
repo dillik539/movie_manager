@@ -1,6 +1,7 @@
 {% extends 'movie_management_app/base.html' %}
 
 {% block content %}
+
 <div>
     <h3>{{movie_detail.name}}'s information</h3>
     <br>
@@ -8,8 +9,8 @@
     <p><strong>Released on:</strong> {{movie_detail.year}}</p>
     <p><strong>Director:</strong> {{movie_detail.director}}</p>
     <p><strong>Actor(s):</strong> {{movie_detail.actor}}</p>
-    <!-- <input type="checkbox" name="watched" value = "Watched"/>Watched -->
 </div>
+
 <form action ="{% url 'add_to_watchedlist' %}" method = "POST">{% csrf_token %}
   <input type = 'hidden' id = 'Name' name = 'Name' value = {{movie_detail.name}} />
   <input type = 'hidden' id ="Year" name= "Year" value = {{movie_detail.year}} />
@@ -21,7 +22,6 @@
   <input type = 'submit' value = 'Add to watchedlist?' />
   <input type = 'submit' name = 'Cancel' value = 'Cancel' />
 </form>
-
 
 
 <p>Go back to user main page? <a href = "{% url 'user' %}">click here</a></p>

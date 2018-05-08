@@ -1,9 +1,13 @@
 {% extends 'movie_management_app/base.html' %}
 
 {% block content %}
+
 <h2>{{ user.username}}'s Movie Management Page</h2>
+
 <a href = "{% url 'watch_list' %}">Watch list</a>
 <a href = "{% url 'watched_list' %}">Watched list</a>
+
 <p>{{ user.username}}, Welcome to your movie management page.</p>
 <p>Please click the links above to navigate to respective page.</p>
+
 {% endblock %}
