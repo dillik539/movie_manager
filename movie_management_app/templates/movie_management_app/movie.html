@@ -4,21 +4,30 @@
 
 
 {% if movie %}
-  <p><strong>Name of movie:</strong> {{movie.Title}}<p>
-  <p><strong>Year of released:</strong> {{movie.Year}}<p>
-  <p><strong>Actors:</strong> {{movie.Actors}}</p>
-  <p><strong>Director:</strong> {{movie.Director}}</p>
+
+  <div style = "clear: right">
+    <p><strong>Name of movie:</strong> {{movie.Title}}<p>
+    <p><strong>Year of released:</strong> {{movie.Year}}<p>
+    <p><strong>Actors:</strong> {{movie.Actors}}</p>
+    <p><strong>Director:</strong> {{movie.Director}}</p>
+  </div>
+
+  <div>
+    <form action = "{% url 'add_to_watchlist' %}" method = "POST">{% csrf_token %}
+      <input type = 'hidden' id = 'Title' name = 'Title' value = {{movie.Title}} />
+      <input type = 'hidden' id ="Year" name= "Year" value = {{movie.Year}} />
+      <input type = 'hidden' id = 'Director' name = 'Director' value = {{movie.Director}} />
+      <input type = 'hidden' id ="Actors" name= "Actors" value = {{movie.Actors}}/>
+      <input type = 'submit' value = 'Add to wishlist?' />
+      <input type = 'submit' name = 'Cancel' value = 'Cancel' />
+      <br>
+    </form>
+  </div>
+
+  <iframe style= "float:right-top;" width="560" height="315" src="https://www.youtube.com/embed/movie.Title" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 {% else %}
   <p>No movie with that name found</p>
 {% endif %}
-<form action = "{% url 'add_to_watchlist' %}" method = "POST">{% csrf_token %}
-  <input type = 'hidden' id = 'Title' name = 'Title' value = {{movie.Title}} />
-  <input type = 'hidden' id ="Year" name= "Year" value = {{movie.Year}} />
-  <input type = 'hidden' id = 'Director' name = 'Director' value = {{movie.Director}} />
-  <input type = 'hidden' id ="Actors" name= "Actors" value = {{movie.Actors}}/>
-  <input type = 'submit' value = 'Add to wishlist?' />
-  <input type = 'submit' name = 'Cancel' value = 'Cancel' />
-</form>
 
 <p><strong>Go back to user main page?</strong> <a href = "{% url 'user' %}"><strong>click here</strong></a></p>
 
